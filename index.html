@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>تابلوی وظایف با وضعیت‌ها</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 2rem;
+      direction: rtl;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0D09BA;
+      margin-bottom: 2rem;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .task-box {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      padding: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-right: 4px solid #0D09BA;
+    }
+
+    .task-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .task-box h3 {
+      margin: 0 0 0.5rem 0;
+      color: #0D09BA;
+    }
+
+    .task-box p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      animation: scaleIn 0.3s ease-in-out;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #0D09BA;
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
+    .modal-content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .modal-content li {
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+      transition: background 0.3s;
+    }
+
+    .done { background: #d4f7d4; color: #2d6a2d; }
+    .pending { background: #fff3cd; color: #856404; }
+    .late { background: #f8d7da; color: #721c24; }
+
+    .badge {
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      user-select: none;
+    }
+
+    .green { background: #28a745; color: white; }
+    .orange { background: #ffc107; color: #212529; }
+    .red { background: #dc3545; color: white; }
+
+    .close-btn {
+      margin-top: 1.5rem;
+      background: #0D09BA;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
+      transition: background 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: #090680;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { background: rgba(0, 0, 0, 0); }
+      to   { background: rgba(0, 0, 0, 0.4); }
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://cdn.imgurl.ir/uploads/h88510__.png" alt="لوگوی ایمن پردازان" style="width: 250px; display: block; margin: 0 auto 20px;" />
+
+  <h1>تابلوی وظایف فروشگاه ایمن پردازان</h1>
+
+  <div class="board">
+    <div class="task-box" onclick="openModal('mehdi')">
+      <h3><img src="https://cdn.imgurl.ir/uploads/k679828_Yara_1.png" alt="نقطه" style=" width: 15px; margin-right: 15px;" /> پیام مهدی خانی</h3>
+      <p>برای مشاهده وظایف کلیک کنید</p>
+    </div>
+
+    <div class="task-box" onclick="openModal('shadi')">
+      <h3><img src="https://cdn.imgurl.ir/uploads/k679828_Yara_1.png" alt="نقطه" style=" width: 15px; margin-right: 15px;" /> علی شادی</h3>
+      <p>برای مشاهده وظایف کلیک کنید</p>
+    </div>
+  </div>
+
+  <!-- Modal - Mehdi -->
+  <div class="modal" id="mehdi">
+    <div class="modal-content">
+      <h2>کارهای امروز پیام مهدی خانی</h2>
+      <ul>
+        <li class="done">بررسی کابل‌ها <span class="badge green">✅ انجام شد</span></li>
+        <li class="pending">تماس با نصاب پروژه <span class="badge orange">⏳ در انتظار</span></li>
+        <li class="late">تعویض آداپتور خراب <span class="badge red">⚠️ مهلت گذشته</span></li>
+      </ul>
+      <button class="close-btn" onclick="closeModal('mehdi')">بستن</button>
+    </div>
+  </div>
+
+  <!-- Modal - Shadi -->
+  <div class="modal" id="shadi">
+    <div class="modal-content">
+      <h2>کارهای امروز علی شادی</h2>
+      <ul>
+        <li class="done">بررسی موجودی کابل‌ها <span class="badge green">✅ انجام شد</span></li>
+        <li class="pending">نصب دوربین طبقه دوم <span style="color: #555; font-size: 0.8em; margin-right: 10px;">🗓 مهلت: ۱۴۰۳/۰۵/۲۸</span><span class="badge orange">⏳ در انتظار</span></li>
+        <li class="pending">پشتیبان‌گیری DVR <span class="badge orange">⏳ در انتظار</span></li>
+      </ul>
+      <button class="close-btn" onclick="closeModal('shadi')">بستن</button>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
